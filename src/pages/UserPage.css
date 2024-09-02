@@ -1,0 +1,94 @@
+/* Estilos para a página do usuário */
+.user-page-container {
+  padding: 20px;
+  padding-top: 80px; /* Ajuste conforme a altura do seu header */
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Garante que o conteúdo ocupe a altura total da tela */
+  box-sizing: border-box; /* Inclui padding e border no cálculo da largura e altura */
+}
+
+.search-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.search-container input,
+.search-container select,
+.search-container button {
+  padding: 10px;
+  font-size: 16px;
+  box-sizing: border-box; /* Inclui padding e border no cálculo da largura e altura */
+}
+
+.search-container input,
+.search-container select {
+  width: 100%;
+}
+
+.search-container button {
+  background-color: #1a73e8;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.search-container button:hover {
+  background-color: #4285f4;
+}
+
+.results-container {
+  margin-top: 20px;
+}
+
+.results-container ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.results-container li {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Estilos para garantir a responsividade */
+@media (max-width: 768px) {
+  .search-container {
+    flex-direction: column;
+  }
+
+  .search-container input,
+  .search-container select,
+  .search-container button {
+    font-size: 14px;
+  }
+}
+
+/* Estilos para o footer (ajustar conforme necessário) */
+footer {
+  padding: 20px;
+  background-color: #1a73e8;
+  color: #fff;
+  text-align: center;
+  margin-top: auto; /* Garante que o footer fique no final da página */
+  width: 100%;
+}
+
+/* Ajustes específicos para pequenos dispositivos */
+@media (max-width: 480px) {
+  .search-container input,
+  .search-container select,
+  .search-container button {
+    font-size: 12px;
+  }
+
+  .results-container li {
+    font-size: 14px;
+  }
+}

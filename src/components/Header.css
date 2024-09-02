@@ -1,0 +1,152 @@
+/* Estilos para o Header */
+.header-container {
+  background: linear-gradient(90deg, #1a73e8, #4285f4);
+  color: #fff;
+  padding: 15px 30px; /* Ajuste o padding geral do header */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+.navigation-menu {
+  display: flex;
+  gap: 15px; /* Ajuste o espaçamento entre os itens do menu */
+  align-items: center;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+}
+
+.navigation-menu a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px; /* Ajuste o tamanho da fonte conforme necessário */
+  padding: 10px 15px;
+  transition: background-color 0.3s, color 0.3s, transform 0.3s;
+  border-radius: 5px;
+}
+
+.navigation-menu a:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #e0e0e0;
+  transform: scale(1.05);
+}
+
+.logo-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  margin-left: 20px; /* Ajuste o espaçamento à esquerda para a logo */
+  margin-right: 20px; /* Adiciona espaçamento à direita para garantir que a logo não fique muito próxima da borda */
+}
+
+.logo-image10 {
+  width: 80px;
+  height: auto;
+  transition: transform 0.3s ease;
+  border-radius: 10px;
+  margin-right: 30px; /* Adiciona espaçamento à direita da imagem da logo */
+}
+
+.logo-link:hover .logo-image10 {
+  transform: scale(1.1);
+}
+
+/* Menu hambúrguer */
+.hamburger-menu {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px; /* Ajuste o espaçamento entre as linhas do hambúrguer */
+  align-items: center;
+}
+
+.hamburger-menu span {
+  height: 5px;
+  width: 30px; /* Ajuste a largura conforme necessário */
+  background-color: #fff;
+  transition: all 0.3s ease;
+  border-radius: 5px;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+  .header-container {
+    flex-direction: row;
+    align-items: center;
+    padding: 10px 15px; /* Ajuste o padding para dispositivos móveis */
+    justify-content: space-between; /* Alinha a logo e o menu hambúrguer nas extremidades */
+  }
+
+  .logo-link {
+    margin: 0 5px; /* Adiciona espaçamento horizontal em dispositivos móveis */
+  }
+
+  .navigation-menu {
+    display: none; /* Oculto por padrão em dispositivos móveis */
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+    position: absolute; /* Posiciona o menu em relação ao header */
+    top: 60px; /* Ajuste conforme necessário para posicionar abaixo do header */
+    left: 0;
+    background: linear-gradient(90deg, #1a73e8, #4285f4); /* Mantém o fundo do menu */
+  }
+
+  .navigation-menu--open {
+    display: flex;
+    max-height: 300px; /* Ajuste o valor conforme necessário */
+    opacity: 1;
+  }
+
+  .navigation-menu a {
+    font-size: 18px;
+    padding: 12px;
+    width: 100%;
+    text-align: center; /* Alinha o texto do menu ao centro */
+  }
+
+  .hamburger-menu {
+    display: flex; /* Exibir o menu hambúrguer em dispositivos móveis */
+  }
+}
+
+/* Animação do menu hambúrguer */
+.hamburger-menu--active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger-menu--active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-menu--active span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* Estilos para telas grandes */
+@media (min-width: 769px) {
+  .navigation-menu {
+    display: flex; /* Exibir o menu normalmente em telas grandes */
+    max-height: none;
+    opacity: 1;
+  }
+
+  .hamburger-menu {
+    display: none; /* Ocultar o menu hambúrguer em telas grandes */
+  }
+
+  .logo-link {
+    margin-left: 30px; /* Ajuste o espaçamento horizontal em telas grandes */
+    margin-right: 30px; /* Ajuste o espaçamento à direita */
+  }
+}
