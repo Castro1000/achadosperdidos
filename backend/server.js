@@ -1,20 +1,25 @@
 const express = require('express');
 const multer = require('multer');
-const path = require('path');
 const mysql = require('mysql');
+const cors = require('cors');
+const path = require('path');
 
 const app = express();
 const port = 3001;
 
+// Configuração do middleware CORS
+app.use(cors());
+
 // Configuração do multer para upload de arquivos
 const upload = multer({ dest: 'uploads/' });
 
+// Configuração da conexão com o banco de dados
 const connection = mysql.createConnection({
   host: '192.168.1.129',
   user: 'root',
   password: '',
   database: 'achadosperdidos',
-  port: 3308 // Certifique-se de que a porta está correta
+  port: 3308
 });
 
 connection.connect((err) => {
@@ -28,10 +33,10 @@ connection.connect((err) => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Endpoint para criar um novo registro
 app.post('/api/registros', upload.array('fotos', 4), (req, res) => {
   const { descricao, localizacao, data_registro, contato } = req.body;
 
-  // Adicionar lógica para salvar as informações no banco de dados
   const query = 'INSERT INTO registros (descricao, localizacao, contato, data_registro) VALUES (?, ?, ?, ?)';
   
   connection.query(query, [descricao, localizacao, contato, data_registro], (error, results) => {
@@ -39,16 +44,32 @@ app.post('/api/registros', upload.array('fotos', 4), (req, res) => {
       console.error('Erro ao salvar no banco de dados:', error);
       return res.status(500).json({ message: 'Erro ao salvar no banco de dados.' });
     }
-    
-    // Salvar os caminhos das fotos se necessário
+
     req.files.forEach(file => {
       console.log('Arquivo enviado:', file.filename);
-      // Lógica para salvar o caminho do arquivo no banco de dados
+      // Lógica para salvar o caminho do arquivo no banco de dados, se necessário
     });
 
     res.status(200).json({ message: 'Item cadastrado com sucesso!' });
   });
 });
+
+// Endpoint para buscar todos os registros
+app.get('/api/registros', (req, res) => {
+  const query = 'SELECT * FROM registros';
+
+  connection.query(query, (error, results) => {
+    if (error) {
+      console.error('Erro ao buscar registros:', error);
+      return res.status(500).json({ message: 'Erro ao buscar registros.' });
+    }
+
+    res.json(results);
+  });
+});
+
+// Servir arquivos estáticos da pasta uploads
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);

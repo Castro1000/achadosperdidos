@@ -4,6 +4,8 @@ import './UserPage.css'; // Certifique-se de que o caminho está correto
 
 const UserPage = () => {
   const [items, setItems] = useState([]);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   // Função para buscar itens do backend
   const fetchItems = async () => {
@@ -12,6 +14,9 @@ const UserPage = () => {
       setItems(response.data);
     } catch (error) {
       console.error('Erro ao buscar registros:', error);
+      setError('Erro ao buscar registros.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -22,7 +27,9 @@ const UserPage = () => {
   return (
     <div className="user-page-container">
       <h2>Itens Cadastrados</h2>
-      <div className="items-list">
+      {loading && <p>Carregando...</p>}
+      {error && <p>{error}</p>}
+      <div className="results-container">
         {items.length > 0 ? (
           <ul>
             {items.map((item) => (
