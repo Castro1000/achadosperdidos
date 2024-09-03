@@ -7,10 +7,13 @@ const UserPage = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // Defina a API_URL no escopo do componente
+  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001'; 
+
   // Função para buscar itens do backend
   const fetchItems = async () => {
     try {
-      const response = await axios.get('http:473702ab5104.sn.mynetname.net:3001/api/registros');
+      const response = await axios.get(`${API_URL}/api/registros`);
       setItems(response.data);
     } catch (error) {
       console.error('Erro ao buscar registros:', error);
@@ -39,9 +42,15 @@ const UserPage = () => {
                 <p><strong>Data de Registro:</strong> {new Date(item.data_registro).toLocaleDateString()}</p>
                 <p><strong>Contato:</strong> {item.contato}</p>
                 {/* Renderização das fotos */}
-                {item.fotos && JSON.parse(item.fotos).map((photo, index) => (
-                  <img key={index} src={`http://localhost/uploads/${photo}`} alt={`Foto ${index + 1}`} />
-                ))}
+                {Array.isArray(item.fotos) ? (
+                  item.fotos.map((photo, index) => (
+                    <img key={index} src={`${API_URL}/uploads/${photo}`} alt={`Foto ${index + 1}`} />
+                  ))
+                ) : (
+                  item.fotos && JSON.parse(item.fotos).map((photo, index) => (
+                    <img key={index} src={`${API_URL}/uploads/${photo}`} alt={`Foto ${index + 1}`} />
+                  ))
+                )}
               </li>
             ))}
           </ul>
