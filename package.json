@@ -2,7 +2,6 @@
   "name": "achados",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://Castro1000.github.io/achad",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -10,6 +9,7 @@
     "axios": "^1.7.7",
     "cors": "^2.8.5",
     "express": "^4.19.2",
+    "gh-pages": "^6.1.1",
     "multer": "^1.4.5-lts.1",
     "mysql": "^2.18.1",
     "react": "^18.3.1",
@@ -19,13 +19,11 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-  "start": "react-scripts start",
-  "build": "react-scripts build",
-  "predeploy": "npm run build",
-  "deploy": "gh-pages -d build",
-  "test": "react-scripts test",
-  "eject": "react-scripts eject"
-},
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -43,8 +41,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "gh-pages": "^6.1.1"
   }
 }
