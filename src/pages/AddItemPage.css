@@ -1,0 +1,42 @@
+.add-item-page-container {
+    padding: 20px;
+    max-width: 600px;
+    margin: auto;
+  }
+  
+  .add-item-page-container h2 {
+    margin-bottom: 20px;
+  }
+  
+  .add-item-page-container form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .add-item-page-container form div {
+    margin-bottom: 15px;
+  }
+  
+  .add-item-page-container form label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .add-item-page-container form input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+  }
+  
+  .add-item-page-container form button {
+    padding: 10px 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .add-item-page-container form button:hover {
+    background-color: #45a049;
+  }
+  

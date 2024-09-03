@@ -1,62 +1,41 @@
 import React, { useState, useEffect } from 'react';
-import './UserPage.css'; // Arquivo CSS para estilos
+import axios from 'axios';
+import './UserPage.css'; // Certifique-se de que o caminho está correto
 
 const UserPage = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('all'); // Filtro por categoria
   const [items, setItems] = useState([]);
-  const [filteredItems, setFilteredItems] = useState([]);
 
-  const handleSearch = () => {
-    // Filtra os itens com base no termo de pesquisa e na categoria selecionada
-    const results = items.filter(item => 
-      (item.name.toLowerCase().includes(searchTerm.toLowerCase()) || searchTerm === '') &&
-      (selectedCategory === 'all' || item.category === selectedCategory)
-    );
-    setFilteredItems(results);
+  // Função para buscar itens do backend
+  const fetchItems = async () => {
+    try {
+      const response = await axios.get('http://localhost:3001/api/registros');
+      setItems(response.data);
+    } catch (error) {
+      console.error('Erro ao buscar registros:', error);
+    }
   };
 
-  const handleInputChange = (e) => {
-    setSearchTerm(e.target.value);
-  };
-
-  const handleCategoryChange = (e) => {
-    setSelectedCategory(e.target.value);
-  };
-
-  // Mock de dados - você pode substituir isso com uma chamada real à API
   useEffect(() => {
-    setItems([
-      { id: 1, name: 'Documento 1', category: 'document' },
-      { id: 2, name: 'Objeto 1', category: 'object' },
-      { id: 3, name: 'Outro 1', category: 'other' },
-      // Adicione mais itens conforme necessário
-    ]);
+    fetchItems();
   }, []);
 
   return (
     <div className="user-page-container">
-      <h2>Pesquisar Itens Perdidos</h2>
-      <div className="search-container">
-        <input
-          type="text"
-          placeholder="Digite o nome do item..."
-          value={searchTerm}
-          onChange={handleInputChange}
-        />
-        <select value={selectedCategory} onChange={handleCategoryChange}>
-          <option value="all">Todas as Categorias</option>
-          <option value="document">Documentos</option>
-          <option value="object">Objetos</option>
-          <option value="other">Outros</option>
-        </select>
-        <button onClick={handleSearch}>Pesquisar</button>
-      </div>
-      <div className="results-container">
-        {filteredItems.length > 0 ? (
+      <h2>Itens Cadastrados</h2>
+      <div className="items-list">
+        {items.length > 0 ? (
           <ul>
-            {filteredItems.map(item => (
-              <li key={item.id}>{item.name}</li>
+            {items.map((item) => (
+              <li key={item.id}>
+                <p><strong>Descrição:</strong> {item.descricao}</p>
+                <p><strong>Localização:</strong> {item.localizacao}</p>
+                <p><strong>Data de Registro:</strong> {new Date(item.data_registro).toLocaleDateString()}</p>
+                <p><strong>Contato:</strong> {item.contato}</p>
+                {/* Renderização das fotos */}
+                {item.fotos && JSON.parse(item.fotos).map((photo, index) => (
+                  <img key={index} src={`http://localhost:3001/uploads/${photo}`} alt={`Foto ${index + 1}`} />
+                ))}
+              </li>
             ))}
           </ul>
         ) : (
