@@ -10,7 +10,7 @@ const UserPage = () => {
   // Função para buscar itens do backend
   const fetchItems = async () => {
     try {
-      const response = await axios.get('http:localhost:3001/api/registros');
+      const response = await axios.get('http:473702ab5104.sn.mynetname.net:3001/api/registros');
       setItems(response.data);
     } catch (error) {
       console.error('Erro ao buscar registros:', error);
