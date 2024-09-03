@@ -14,8 +14,9 @@ app.use(cors());
 const upload = multer({ dest: 'uploads/' });
 
 // Configuração da conexão com o banco de dados
+// 473702ab5104.sn.mynetname.net  //conexao externa            
 const connection = mysql.createConnection({
-  host: '192.168.1.129',
+  host: '473702ab5104.sn.mynetname.net',
   user: 'root',
   password: '',
   database: 'achadosperdidos',
