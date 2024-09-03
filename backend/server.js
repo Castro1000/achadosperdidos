@@ -5,7 +5,7 @@ const cors = require('cors');
 const path = require('path');
 
 const app = express();
-const port = 3001;
+const port = 3308;
 
 // Configuração do middleware CORS
 app.use(cors());
@@ -16,7 +16,7 @@ const upload = multer({ dest: 'uploads/' });
 // Configuração da conexão com o banco de dados
 // 473702ab5104.sn.mynetname.net  //conexao externa acessar de fora        
 const connection = mysql.createConnection({
-  host: '473702ab5104.sn.mynetname.net',
+  host: '192.168.1.129',
   user: 'root',
   password: '',
   database: 'achadosperdidos',
