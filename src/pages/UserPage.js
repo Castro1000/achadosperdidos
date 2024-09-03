@@ -10,7 +10,7 @@ const UserPage = () => {
   // Função para buscar itens do backend
   const fetchItems = async () => {
     try {
-      const response = await axios.get('http://192.168.1.129:3001/api/registros');
+      const response = await axios.get('http://localhost:3001/api/registros');
       setItems(response.data);
     } catch (error) {
       console.error('Erro ao buscar registros:', error);
@@ -40,7 +40,7 @@ const UserPage = () => {
                 <p><strong>Contato:</strong> {item.contato}</p>
                 {/* Renderização das fotos */}
                 {item.fotos && JSON.parse(item.fotos).map((photo, index) => (
-                  <img key={index} src={`http://192.168.1.129:3001/uploads/${photo}`} alt={`Foto ${index + 1}`} />
+                  <img key={index} src={`http://localhost:3001/uploads/${photo}`} alt={`Foto ${index + 1}`} />
                 ))}
               </li>
             ))}
