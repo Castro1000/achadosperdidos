@@ -1,4 +1,4 @@
-/* Escopo específico para UserPage */
+/* Container da página */
 .user-page-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -12,15 +12,15 @@
   min-height: 100vh;
 }
 
-/* Título exclusivo da UserPage */
+/* Título */
 .user-page-container h2 {
   text-align: center;
   font-size: 28px;
-  color: #007bff;
+  color: #333;
   margin-bottom: 20px;
 }
 
-/* Header exclusivo da UserPage */
+/* Header */
 .user-page-container header {
   background-color: #007bff;
   color: white;
@@ -34,23 +34,7 @@
   z-index: 1000; /* Garante que o header está acima do conteúdo */
 }
 
-/* Header responsivo para telas menores */
-@media (max-width: 768px) {
-  .user-page-container header {
-    padding: 15px;
-    font-size: 20px;
-  }
-}
-
-@media (max-width: 480px) {
-  .user-page-container header {
-    padding: 10px;
-    font-size: 18px;
-  }
-}
-
-
-/* Footer exclusivo da UserPage */
+/* Footer */
 .user-page-container footer {
   background-color: #007bff;
   color: white;
@@ -60,10 +44,10 @@
   margin-top: auto;
 }
 
-/* Container dos filtros exclusivo da UserPage */
-.user-page-container .filter-container {
+/* Container dos filtros */
+.filter-container {
   display: flex;
-  justify-content: center; /* Centraliza os filtros */
+  justify-content: center;
   gap: 15px;
   margin-bottom: 30px;
   background-color: #ffffff;
@@ -72,8 +56,8 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Input de filtro exclusivo da UserPage */
-.user-page-container .filter-input {
+/* Input de filtro */
+.filter-input {
   padding: 12px;
   font-size: 16px;
   border: 1px solid #ccc;
@@ -82,13 +66,13 @@
   transition: border-color 0.3s;
 }
 
-.user-page-container .filter-input:focus {
+.filter-input:focus {
   outline: none;
   border-color: #007bff;
 }
 
-/* Botão de filtro exclusivo da UserPage */
-.user-page-container .filter-button {
+/* Botão de filtro */
+.filter-button {
   padding: 12px 25px;
   font-size: 16px;
   background-color: #007bff;
@@ -99,24 +83,24 @@
   transition: background-color 0.3s;
 }
 
-.user-page-container .filter-button:hover {
+.filter-button:hover {
   background-color: #0056b3;
 }
 
-/* Container de resultados exclusivo da UserPage */
-.user-page-container .results-container {
+/* Container de resultados */
+.results-container {
   margin-top: 20px;
 }
 
-/* Grid de cards exclusivo da UserPage */
-.user-page-container .card-grid {
+/* Grid de cards */
+.card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 20px;
 }
 
-/* Estilos dos cards exclusivo da UserPage */
-.user-page-container .card {
+/* Estilos dos cards */
+.card {
   background-color: #ffffff;
   border: 1px solid #e0e0e0;
   border-radius: 15px;
@@ -125,37 +109,37 @@
   transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.user-page-container .card:hover {
+.card:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-/* Conteúdo dos cards exclusivo da UserPage */
-.user-page-container .card-content {
+/* Conteúdo dos cards */
+.card-content {
   padding: 20px;
   font-size: 16px;
   color: #333;
 }
 
-.user-page-container .card-content p {
+.card-content p {
   margin: 8px 0;
 }
 
-/* Imagens dos cards exclusivo da UserPage */
-.user-page-container .card-images {
+/* Imagens dos cards */
+.card-images {
   display: flex;
   justify-content: center;
   padding: 15px;
 }
 
-.user-page-container .card-images img {
+.card-images img {
   max-width: 100%;
   height: auto;
   border-radius: 10px;
 }
 
-/* Botão de marcar como entregue exclusivo da UserPage */
-.user-page-container .mark-delivered-button {
+/* Botão de marcar como entregue */
+.mark-delivered-button {
   margin-top: 15px;
   padding: 12px 15px;
   font-size: 14px;
@@ -167,14 +151,110 @@
   transition: background-color 0.3s;
 }
 
-.user-page-container .mark-delivered-button:hover {
+.mark-delivered-button:hover {
   background-color: #218838;
 }
 
-/* Texto de entregue exclusivo da UserPage */
-.user-page-container .delivered {
+/* Texto de entregue */
+.delivered {
   color: #28a745;
   font-weight: bold;
   font-size: 14px;
   margin-top: 10px;
+}
+
+/* Responsividade */
+
+/* Ajustes para telas menores que 768px */
+@media (max-width: 768px) {
+  .user-page-container {
+    padding: 100px 15px 20px;
+  }
+
+  .user-page-container h2 {
+    font-size: 24px;
+  }
+
+  .filter-container {
+    flex-direction: column; /* Torna os filtros verticais */
+    gap: 10px;
+  }
+
+  .filter-input {
+    width: 100%; /* O input de filtro ocupa toda a largura */
+  }
+
+  .filter-button {
+    width: 100%; /* O botão também ocupa toda a largura */
+  }
+
+  .card-grid {
+    grid-template-columns: 1fr; /* Exibe um card por linha */
+  }
+
+  .card-content {
+    font-size: 14px;
+  }
+
+  .user-page-container header {
+    padding: 15px;
+    font-size: 20px;
+  }
+
+  .user-page-container footer {
+    font-size: 14px;
+    padding: 10px;
+  }
+}
+
+/* Ajustes para telas menores que 480px */
+@media (max-width: 480px) {
+  .user-page-container {
+    padding: 80px 10px 20px;
+  }
+
+  .user-page-container h2 {
+    font-size: 20px;
+  }
+
+  .filter-container {
+    gap: 8px;
+  }
+
+  .filter-input {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .filter-button {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+
+  .card-content {
+    font-size: 12px;
+  }
+
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card-images {
+    padding: 10px;
+  }
+
+  .mark-delivered-button {
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+
+  .user-page-container header {
+    padding: 10px;
+    font-size: 18px;
+  }
+
+  .user-page-container footer {
+    font-size: 12px;
+    padding: 8px;
+  }
 }
