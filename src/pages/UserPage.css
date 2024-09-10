@@ -34,6 +34,22 @@
   z-index: 1000; /* Garante que o header está acima do conteúdo */
 }
 
+/* Header responsivo para telas menores */
+@media (max-width: 768px) {
+  .user-page-container header {
+    padding: 15px;
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .user-page-container header {
+    padding: 10px;
+    font-size: 18px;
+  }
+}
+
+
 /* Footer exclusivo da UserPage */
 .user-page-container footer {
   background-color: #007bff;
