@@ -1,13 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './HomePage.css'; // Importando o CSS externo
 
 function HomePage() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const loggedIn = sessionStorage.getItem('loggedIn') === 'true';
+    setIsLoggedIn(loggedIn);
+  }, []);
+
+  const handleLogout = () => {
+    sessionStorage.removeItem('loggedIn');
+    navigate('/login');
+  };
+
   const handleRegisterClick = () => {
-    window.location.href = '/admin'; // Navega para a página Admin
+    navigate('/admin'); // Navega para a página Admin
   };
 
   const handleSearchClick = () => {
-    window.location.href = '/UserPage'; // Navega para a página User
+    navigate('/UserPage'); // Navega para a página User
   };
 
   return (
@@ -15,7 +29,7 @@ function HomePage() {
       <header className="home-page__header">
         <div className="home-page__banner">
           <h1 className="home-page__title">Achados e Perdidos</h1>
-          <p className="home-page__subtitle">Bem-vindo ao sistema de Achados e Perdidos dos terminais de ônibus.</p>
+          <p className="home-page__subtitle">Bem-vindo ao sistema de Achados e Perdidos da Universidade Uninorte.</p>
         </div>
       </header>
 
@@ -30,8 +44,15 @@ function HomePage() {
           </p>
         </div>
         <div className="home-page__actions">
-          <button className="home-page__button home-page__button--register" onClick={handleRegisterClick}>Registrar Item Encontrado</button>
-          <button className="home-page__button home-page__button--search" onClick={handleSearchClick}>Procurar Item Perdido</button>
+          {isLoggedIn ? (
+            <>
+              <button className="home-page__button home-page__button--register" onClick={handleRegisterClick}>Registrar Item Encontrado</button>
+              <button className="home-page__button home-page__button--search" onClick={handleSearchClick}>Procurar Item Perdido</button>
+              <button className="home-page__button home-page__button--logout" onClick={handleLogout}>Logout</button>
+            </>
+          ) : (
+            <button className="home-page__button home-page__button--search" onClick={handleSearchClick}>Procurar Item Perdido</button>
+          )}
         </div>
       </section>
     </div>

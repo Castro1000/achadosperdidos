@@ -14,7 +14,7 @@ const Header = () => {
       {/* Menu de navegação com link para UserPage */}
       <nav className={`navigation-menu ${menuOpen ? 'navigation-menu--open' : ''}`}>
         <Link to="/" onClick={() => setMenuOpen(false)}>Home</Link>
-        <Link to="/UserPage" onClick={() => setMenuOpen(false)}>Pesquisar</Link> {/* Alterado para UserPage */}
+        {/* <Link to="/UserPage" onClick={() => setMenuOpen(false)}>Pesquisar</Link> Alterado para UserPage */}
       </nav>
 
       {/* Menu hambúrguer para dispositivos móveis */}

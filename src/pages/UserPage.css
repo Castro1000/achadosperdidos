@@ -15,9 +15,10 @@
 /* Título */
 .user-page-container h2 {
   text-align: center;
-  font-size: 28px;
+  font-size: 25px;
   color: #333;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 /* Header */
@@ -45,8 +46,10 @@
 }
 
 /* Container dos filtros */
-.filter-container {
+/* Container dos filtros */
+.filter-container1 {
   display: flex;
+  flex-wrap: wrap; /* Permite que os itens se movam para a linha seguinte se não houver espaço */
   justify-content: center;
   gap: 15px;
   margin-bottom: 30px;
@@ -57,7 +60,7 @@
 }
 
 /* Input de filtro */
-.filter-input {
+.filter-input1 {
   padding: 12px;
   font-size: 16px;
   border: 1px solid #ccc;
@@ -66,26 +69,65 @@
   transition: border-color 0.3s;
 }
 
-.filter-input:focus {
+.filter-input1:focus {
   outline: none;
   border-color: #007bff;
 }
 
 /* Botão de filtro */
-.filter-button {
+.filter-button1 {
   padding: 12px 25px;
   font-size: 16px;
-  background-color: #007bff;
+  background-color: #ff7b00d0;
   color: white;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s;
+
 }
 
-.filter-button:hover {
+.filter-button1:hover {
   background-color: #0056b3;
 }
+
+/* Responsividade */
+
+/* Ajustes para telas menores que 768px */
+@media (max-width: 768px) {
+  .filter-container1 {
+    flex-direction: column; /* Torna os filtros verticais */
+    gap: 10px;
+  }
+
+  .filter-input1 {
+    width: 93%; /* O input de filtro ocupa toda a largura disponível */
+    margin-bottom: 7px;
+  }
+
+  .filter-button1 {
+    width: 100%; /* O botão também ocupa toda a largura disponível */
+  }
+}
+
+/* Ajustes para telas menores que 480px */
+@media (max-width: 480px) {
+  .filter-container1 {
+    padding: 15px;
+    gap: 20px;
+  }
+
+  .filter-input1 {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .filter-button1 {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+}
+
 
 /* Container de resultados */
 .results-container {
@@ -143,7 +185,7 @@
   margin-top: 15px;
   padding: 12px 15px;
   font-size: 14px;
-  background-color: #28a745;
+  background-color: #ff7b00d0;
   color: white;
   border: none;
   border-radius: 8px;

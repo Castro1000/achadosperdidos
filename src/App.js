@@ -5,6 +5,7 @@ import AdminPage from './pages/AdminPage';
 import UserPage from './pages/UserPage';
 import AddItemPage from './pages/AddItemPage'; // Importando a página de cadastro
 import NotFoundPage from './pages/NotFoundPage';
+import LoginPage from './pages/LoginPage'; // Importando a página de login
 import Header from './components/Header';
 import Footer from './components/Footer';
 
@@ -12,16 +13,22 @@ function App() {
   return (
     <Router>
       <div className="App">
-        {/* Renderiza o Header e o Footer em todas as páginas, exceto na HomePage */}
         <Routes>
-          <Route 
-            path="/" 
+          {/* Página de Login */}
+          <Route path="/login" element={<LoginPage />} />
+
+          {/* Redireciona para a tela de login se o usuário não estiver autenticado */}
+          <Route
+            path="/"
             element={
-              <HomePage /> // Renderiza apenas a HomePage sem Header e Footer
-            } 
+              <PrivateRoute>
+                <HomePage />
+              </PrivateRoute>
+            }
           />
-          <Route 
-            path="/*" 
+
+          <Route
+            path="/*"
             element={
               <>
                 <Header />
@@ -35,12 +42,17 @@ function App() {
                 </div>
                 <Footer />
               </>
-            } 
+            }
           />
         </Routes>
       </div>
     </Router>
   );
+}
+
+function PrivateRoute({ children }) {
+  const loggedIn = sessionStorage.getItem('loggedIn') === 'true';
+  return loggedIn ? children : <LoginPage />;
 }
 
 export default App;

@@ -83,24 +83,24 @@ const UserPage = () => {
 
   return (
     <div className="user-page-container">
-      <h2>Itens Cadastrados</h2>
+      <h2>ITENS CADASTRADOS</h2>
 
       {/* Filtros */}
-      <div className="filter-container">
+      <div className="filter-container1">
         <input 
           type="text"
           placeholder="Filtrar por descrição"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="filter-input"
+          className="filter-input1"
         />
         <input 
           type="date"
           value={filterDate}
           onChange={(e) => setFilterDate(e.target.value)}
-          className="filter-input"
+          className="filter-input1"
         />
-        <button onClick={handleFilter} className="filter-button">Filtrar</button>
+        <button onClick={handleFilter} className="filter-button1">Filtrar</button>
       </div>
 
       {loading && <p>Carregando...</p>}

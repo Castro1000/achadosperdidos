@@ -7,7 +7,7 @@ const AddItemPage = () => {
   const [localizacao, setLocalizacao] = useState('');
   const [dataRegistro, setDataRegistro] = useState('');
   const [contato, setContato] = useState('');
-  const [photos, setPhotos] = useState([]);
+  const [fotos, setFotos] = useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,8 +18,8 @@ const AddItemPage = () => {
     formData.append('data_registro', dataRegistro);
     formData.append('contato', contato);
 
-    photos.forEach(photo => {
-      formData.append('photos', photo);
+    fotos.forEach(foto => {
+      formData.append('fotos', foto);
     });
 
     try {
@@ -27,6 +27,13 @@ const AddItemPage = () => {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       alert('Item cadastrado com sucesso!');
+      
+      // Limpar o formulário após o sucesso
+      setDescricao('');
+      setLocalizacao('');
+      setDataRegistro('');
+      setContato('');
+      setFotos([]);
     } catch (error) {
       console.error('Erro ao cadastrar item:', error);
       alert('Erro ao cadastrar item. Tente novamente.');
@@ -78,11 +85,11 @@ const AddItemPage = () => {
           />
         </div>
         <div>
-          <label htmlFor="photos">Fotos:</label>
+          <label htmlFor="fotos">Fotos:</label>
           <input
             type="file"
-            id="photos"
-            onChange={(e) => setPhotos([...e.target.files])}
+            id="fotos"
+            onChange={(e) => setFotos([...e.target.files])}
             multiple
             accept="image/*"
           />

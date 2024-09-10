@@ -35,7 +35,7 @@ function AdminPage() {
       });
 
       // Enviar dados para o backend usando FormData
-      await axios.post('http://localhost:3001/api/registros', formData, {
+      await axios.post('http://localhost:3308/api/registros', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

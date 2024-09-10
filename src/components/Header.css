@@ -1,6 +1,6 @@
 /* Estilos para o Header */
 .header-container {
-  background: linear-gradient(90deg, #1a73e8, #4285f4);
+  background: linear-gradient(90deg, #1a73e8, #ff7b00d0);
   color: #fff;
   padding: 15px 30px; /* Ajuste o padding geral do header */
   display: flex;
@@ -26,7 +26,7 @@
 .navigation-menu a {
   color: #fff;
   text-decoration: none;
-  font-size: 16px; /* Ajuste o tamanho da fonte conforme necessário */
+  font-size: 20px; /* Ajuste o tamanho da fonte conforme necessário */
   padding: 10px 15px;
   transition: background-color 0.3s, color 0.3s, transform 0.3s;
   border-radius: 5px;
@@ -51,7 +51,7 @@
   height: auto;
   transition: transform 0.3s ease;
   border-radius: 10px;
-  margin-right: 30px; /* Adiciona espaçamento à direita da imagem da logo */
+  margin-right: 25px; /* Adiciona espaçamento à direita da imagem da logo */
 }
 
 .logo-link:hover .logo-image10 {
@@ -68,11 +68,11 @@
 }
 
 .hamburger-menu span {
-  height: 5px;
-  width: 30px; /* Ajuste a largura conforme necessário */
-  background-color: #fff;
+  height: 10px;
+  width: 50px; /* Ajuste a largura conforme necessário */
+  background-color: #ddddddd0;
   transition: all 0.3s ease;
-  border-radius: 5px;
+  border-radius: 50px;
 }
 
 /* Estilos responsivos */
@@ -80,12 +80,12 @@
   .header-container {
     flex-direction: row;
     align-items: center;
-    padding: 10px 15px; /* Ajuste o padding para dispositivos móveis */
+    padding: 10px 10px; /* Ajuste o padding para dispositivos móveis */
     justify-content: space-between; /* Alinha a logo e o menu hambúrguer nas extremidades */
   }
 
   .logo-link {
-    margin: 0 5px; /* Adiciona espaçamento horizontal em dispositivos móveis */
+    margin: 0 25px; /* Adiciona espaçamento horizontal em dispositivos móveis */
   }
 
   .navigation-menu {
@@ -110,19 +110,22 @@
 
   .navigation-menu a {
     font-size: 18px;
-    padding: 12px;
+    padding: 10px;
     width: 100%;
     text-align: center; /* Alinha o texto do menu ao centro */
+    margin-left: -45px;
   }
 
   .hamburger-menu {
     display: flex; /* Exibir o menu hambúrguer em dispositivos móveis */
+    margin: 2px;
   }
 }
 
 /* Animação do menu hambúrguer */
 .hamburger-menu--active span:nth-child(1) {
-  transform: rotate(45deg) translate(5px, 5px);
+  transform: rotate(48deg) translate(10px, 10px);
+
 }
 
 .hamburger-menu--active span:nth-child(2) {
