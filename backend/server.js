@@ -14,7 +14,6 @@ app.use(cors());
 const upload = multer({ dest: 'uploads/' });
 
 // Configuração da conexão com o banco de dados
-// 473702ab5104.sn.mynetname.net  //conexao externa acessar de fora        
 const connection = mysql.createConnection({
   host: '473702ab5104.sn.mynetname.net',
   user: 'root',
@@ -66,6 +65,27 @@ app.get('/api/registros', (req, res) => {
     }
 
     res.json(results);
+  });
+});
+
+// Novo endpoint para atualizar o status de entrega e data de entrega
+app.put('/api/registros/:id', (req, res) => {
+  const { id } = req.params;
+  const { entregue, data_entrega } = req.body;
+
+  const query = 'UPDATE registros SET entregue = ?, data_entrega = ? WHERE id = ?';
+
+  connection.query(query, [entregue, data_entrega, id], (error, results) => {
+    if (error) {
+      console.error('Erro ao atualizar o registro:', error);
+      return res.status(500).json({ message: 'Erro ao atualizar o registro.' });
+    }
+
+    if (results.affectedRows === 0) {
+      return res.status(404).json({ message: 'Registro não encontrado.' });
+    }
+
+    res.status(200).json({ message: 'Status de entrega atualizado com sucesso.' });
   });
 });
 
