@@ -14,7 +14,7 @@ const UserPage = () => {
   // Função para buscar os itens do backend
   const fetchItems = async () => {
     try {
-      const response = await axios.get('http://localhost:3308/api/registros');
+      const response = await axios.get('https://473702ab5104.sn.mynetname.net:3308/api/registros');
       setItems(response.data);
       setFilteredItems(response.data); // Inicialmente mostrar todos
     } catch (error) {
@@ -59,7 +59,7 @@ const UserPage = () => {
 
     if (deliveryDate) {
       try {
-        await axios.put(`http://localhost:3308/api/registros/${itemId}`, {
+        await axios.put(`https://473702ab5104.sn.mynetname.net:3308/api/registros/${itemId}`, {
           entregue: true,
           data_entrega: deliveryDate
         });
@@ -136,7 +136,7 @@ const UserPage = () => {
                 </div>
                 <div className="card-images">
                   {item.fotos && JSON.parse(item.fotos).map((photo, index) => (
-                    <img key={index} src={`http://localhost:3308/uploads/${photo}`} alt={`Foto ${index + 1}`} />
+                    <img key={index} src={`https://473702ab5104.sn.mynetname.net:3308/uploads/${photo}`} alt={`Foto ${index + 1}`} />
                   ))}
                 </div>
               </div>

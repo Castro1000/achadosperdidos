@@ -23,7 +23,7 @@ const AddItemPage = () => {
     });
 
     try {
-      await axios.post('http://localhost:3308/api/registros', formData, {
+      await axios.post('https://473702ab5104.sn.mynetname.net:3308/api/registros', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       alert('Item cadastrado com sucesso!');
