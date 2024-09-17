@@ -3,33 +3,20 @@ const multer = require('multer');
 const mysql = require('mysql');
 const cors = require('cors');
 const path = require('path');
-const fs = require('fs');
 
 const app = express();
-const port = 3001;
+const port = 3308;
 
 // Configuração do middleware CORS
 app.use(cors());
 
 // Configuração do multer para upload de arquivos
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    const uploadDir = path.join(__dirname, 'uploads');
-    if (!fs.existsSync(uploadDir)) {
-      fs.mkdirSync(uploadDir);
-    }
-    cb(null, 'uploads/');
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname)); // Adiciona timestamp ao nome do arquivo
-  }
-});
-const upload = multer({ storage });
+const upload = multer({ dest: 'uploads/' });
 
 // Configuração da conexão com o banco de dados
-//473702ab5104.sn.mynetname.net
+// 473702ab5104.sn.mynetname.net  //conexao externa acessar de fora        
 const connection = mysql.createConnection({
-  host: '473702ab5104.sn.mynetname.net',
+  host: '192.168.1.129',
   user: 'root',
   password: '',
   database: 'achadosperdidos',
@@ -48,31 +35,21 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Endpoint para criar um novo registro
-app.post('/api/registros', upload.array('photos', 4), (req, res) => {
+app.post('/api/registros', upload.array('fotos', 4), (req, res) => {
   const { descricao, localizacao, data_registro, contato } = req.body;
-  
-  const query = 'INSERT INTO registros (descricao, localizacao, contato, data_registro) VALUES (?, ?, ?, ?)';
 
+  const query = 'INSERT INTO registros (descricao, localizacao, contato, data_registro) VALUES (?, ?, ?, ?)';
+  
   connection.query(query, [descricao, localizacao, contato, data_registro], (error, results) => {
     if (error) {
       console.error('Erro ao salvar no banco de dados:', error);
       return res.status(500).json({ message: 'Erro ao salvar no banco de dados.' });
     }
 
-    const registroId = results.insertId;
-
-    // Verifica se foram enviadas fotos
-    if (req.files && req.files.length > 0) {
-      const insertPhotosQuery = 'INSERT INTO fotos (registro_id, caminho_foto) VALUES ?';
-      const photoData = req.files.map(file => [registroId, `/uploads/${file.filename}`]);
-
-      connection.query(insertPhotosQuery, [photoData], (photoError) => {
-        if (photoError) {
-          console.error('Erro ao salvar fotos no banco de dados:', photoError);
-          return res.status(500).json({ message: 'Erro ao salvar fotos no banco de dados.' });
-        }
-      });
-    }
+    req.files.forEach(file => {
+      console.log('Arquivo enviado:', file.filename);
+      // Lógica para salvar o caminho do arquivo no banco de dados, se necessário
+    });
 
     res.status(200).json({ message: 'Item cadastrado com sucesso!' });
   });
@@ -92,31 +69,9 @@ app.get('/api/registros', (req, res) => {
   });
 });
 
-// Novo endpoint para atualizar o status de entrega e data de entrega
-app.put('/api/registros/:id', (req, res) => {
-  const { id } = req.params;
-  const { entregue, data_entrega } = req.body;
-
-  const query = 'UPDATE registros SET entregue = ?, data_entrega = ? WHERE id = ?';
-
-  connection.query(query, [entregue, data_entrega, id], (error, results) => {
-    if (error) {
-      console.error('Erro ao atualizar o registro:', error);
-      return res.status(500).json({ message: 'Erro ao atualizar o registro.' });
-    }
-
-    if (results.affectedRows === 0) {
-      return res.status(404).json({ message: 'Registro não encontrado.' });
-    }
-
-    res.status(200).json({ message: 'Status de entrega atualizado com sucesso.' });
-  });
-});
-
 // Servir arquivos estáticos da pasta uploads
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// Iniciar o servidor
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);
 });
