@@ -9,12 +9,12 @@ const UserPage = () => {
   const [filterDate, setFilterDate] = useState('');
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [deliveryDates, setDeliveryDates] = useState({}); // Armazena a data de entrega por item
+  const [deliveryDates, setDeliveryDates] = useState({});
 
   // Função para buscar os itens do backend
   const fetchItems = async () => {
     try {
-      const response = await axios.get('https://473702ab5104.sn.mynetname.net:3308/api/registros');
+      const response = await axios.get('http://192.168.15.23:3308/api/registros');
       setItems(response.data);
       setFilteredItems(response.data); // Inicialmente mostrar todos
     } catch (error) {
@@ -41,7 +41,7 @@ const UserPage = () => {
 
     if (filterDate) {
       filtered = filtered.filter(item => {
-        const itemDate = new Date(item.data_registro).toISOString().split('T')[0]; // Formata a data do item para "yyyy-MM-dd"
+        const itemDate = new Date(item.data_registro).toISOString().split('T')[0];
         return itemDate === filterDate;
       });
     }
@@ -55,11 +55,11 @@ const UserPage = () => {
 
   // Função para marcar um item como entregue
   const markAsDelivered = async (itemId) => {
-    const deliveryDate = deliveryDates[itemId]; // Pega a data armazenada para o item
+    const deliveryDate = deliveryDates[itemId]; 
 
     if (deliveryDate) {
       try {
-        await axios.put(`https://473702ab5104.sn.mynetname.net:3308/api/registros/${itemId}`, {
+        await axios.put(`http://473702ab5104.sn.mynetname.net:3308/api/registros/${itemId}`, {
           entregue: true,
           data_entrega: deliveryDate
         });
@@ -77,7 +77,7 @@ const UserPage = () => {
   const handleDeliveryDateChange = (itemId, date) => {
     setDeliveryDates((prevDates) => ({
       ...prevDates,
-      [itemId]: date, // Atualiza a data específica para o item
+      [itemId]: date,
     }));
   };
 
@@ -116,12 +116,10 @@ const UserPage = () => {
                   <p><strong>Data de Registro:</strong> {new Date(item.data_registro).toLocaleDateString()}</p>
                   <p><strong>Contato:</strong> {item.contato}</p>
 
-                  {/* Verificação se o item já foi entregue */}
                   {item.entregue ? (
                     <p className="delivered">Entregue em: {new Date(item.data_entrega).toLocaleDateString()}</p>
                   ) : (
                     <>
-                      {/* Exibir input de data e botão para marcar como entregue */}
                       <input 
                         type="date" 
                         value={deliveryDates[item.id] || ''} 
@@ -136,7 +134,7 @@ const UserPage = () => {
                 </div>
                 <div className="card-images">
                   {item.fotos && JSON.parse(item.fotos).map((photo, index) => (
-                    <img key={index} src={`https://473702ab5104.sn.mynetname.net:3308/uploads/${photo}`} alt={`Foto ${index + 1}`} />
+                    <img key={index} src={`http://473702ab5104.sn.mynetname.net:3308/uploads/${photo}`} alt={`Foto ${index + 1}`} />
                   ))}
                 </div>
               </div>
