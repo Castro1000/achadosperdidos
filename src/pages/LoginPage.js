@@ -1,5 +1,4 @@
-// src/LoginPage.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './LoginPage.css'; // Importa o CSS específico para a página de login
 
@@ -7,6 +6,13 @@ function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+
+  // Verifica se o usuário já está logado ao carregar a página
+  useEffect(() => {
+    if (sessionStorage.getItem('loggedIn') === 'true') {
+      navigate('/'); // Redireciona para a página inicial
+    }
+  }, [navigate]);
 
   const handleLogin = () => {
     // Verifique as credenciais (este exemplo usa credenciais estáticas)

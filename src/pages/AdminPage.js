@@ -35,7 +35,7 @@ function AdminPage() {
       });
 
       // Enviar dados para o backend usando FormData
-      await axios.post('http://473702ab5104.sn.mynetname.net:3308/api/registros', formData, {
+      await axios.post('http://192.168.15.23:3308/api/registros', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
