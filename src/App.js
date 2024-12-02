@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import AdminPage from './pages/AdminPage';
 import UserPage from './pages/UserPage';
@@ -17,7 +17,7 @@ function App() {
           {/* Página de Login */}
           <Route path="/login" element={<LoginPage />} />
 
-          {/* Redireciona para a tela de login se o usuário não estiver autenticado */}
+          {/* Rota privada para HomePage */}
           <Route
             path="/"
             element={
@@ -27,6 +27,7 @@ function App() {
             }
           />
 
+          {/* Rotas com Header e Footer para outras páginas */}
           <Route
             path="/*"
             element={
@@ -37,7 +38,7 @@ function App() {
                     <Route path="/admin" element={<AdminPage />} />
                     <Route path="/UserPage" element={<UserPage />} />
                     <Route path="/add-item" element={<AddItemPage />} /> {/* Rota para a página de cadastro */}
-                    <Route path="*" element={<NotFoundPage />} />
+                    <Route path="*" element={<NotFoundPage />} /> {/* Página 404 */}
                   </Routes>
                 </div>
                 <Footer />
@@ -50,9 +51,16 @@ function App() {
   );
 }
 
+// Componente PrivateRoute atualizado com Navigate
 function PrivateRoute({ children }) {
   const loggedIn = sessionStorage.getItem('loggedIn') === 'true';
-  return loggedIn ? children : <LoginPage />;
+
+  // Se o usuário não estiver logado, redireciona para a página de login
+  if (!loggedIn) {
+    return <Navigate to="/login" replace />;
+  }
+
+  return children;
 }
 
 export default App;

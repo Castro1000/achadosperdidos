@@ -1,45 +1,183 @@
 /* src/LoginPage.css */
-.login-container {
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  height: 100%;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  background: linear-gradient(135deg, #1f1f1f 0%, #3a3a3a 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  overflow: hidden;
+}
+
+.login-container1 {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
-  background-color: #f5f7fa;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  width: 350px;
+  transition: transform 0.5s ease;
+  position: relative;
 }
 
-.login-container h2 {
-  font-size: 24px;
-  color: #333;
+.login-container1:hover {
+  transform: scale(1.02);
+}
+
+/* Estilo para a imagem do logo */
+.login-logo {
+  width: 150px; /* Ajuste o tamanho conforme necessário */
   margin-bottom: 20px;
+  border-radius: 30%;
 }
 
-.login-input {
-  padding: 12px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  width: 300px;
-  margin-bottom: 15px;
+/* Remove o texto de login, pois a logo será usada no lugar */
+.logintext {
+  display: none; /* Esconder o texto */
 }
 
-.login-input:focus {
+.login-input2 {
+  padding: 15px;
+  font-size: 18px;
+  border: none;
+  border-radius: 50px;
+  width: 100%;
+  margin-bottom: 20px;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  box-shadow: inset 0 4px 6px rgba(0, 0, 0, 0.3);
+  transition: background 0.3s, box-shadow 0.3s;
+}
+
+.login-input2:focus {
+  background: rgba(255, 255, 255, 0.3);
   outline: none;
-  border-color: #007bff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5), inset 0 4px 6px rgba(0, 0, 0, 0.5);
 }
 
-.login-button {
-  padding: 12px 20px;
-  font-size: 16px;
-  background-color: #007bff;
+.login-button2 {
+  padding: 15px;
+  font-size: 18px;
+  width: 100%;
+  background: linear-gradient(135deg, #6e40c9 0%, #9d4edd 100%);
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 50px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background 0.3s, transform 0.3s;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-.login-button:hover {
-  background-color: #0056b3;
+.login-button2:hover {
+  background: linear-gradient(135deg, #9d4edd 0%, #6e40c9 100%);
+  transform: scale(1.05);
+}
+
+.login-button2:active {
+  transform: scale(0.98);
+}
+
+.login-button2:focus {
+  outline: none;
+}
+
+.login-input2::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.login-container1::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 20px;
+  z-index: -1;
+}
+
+/* Estilo para o texto descritivo sobre o aplicativo */
+.login-description {
+  margin-top: 10px;
+  font-size: 14px;
+  color: rgb(255, 255, 255);
+  text-align: center;
+  line-height: 1.5;
+}
+
+
+/* Estilo para o botão de cadastro */
+.register-button {
+  margin: 5px;
+  padding: 15px;
+  font-size: 18px;
+  width: 100%;
+  background: linear-gradient(135deg, #008d23 0%, #00f884 100%);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilo para o modal de registro */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.register-modal {
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
+  width: 300px;
+  box-shadow: 0px 0px 10px rgba(241, 241, 241, 0.1);
+  text-align: center;
+}
+
+.register-input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.save-button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.cancel-button {
+  background-color: #f44336;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+  margin-left: 10px;
 }

@@ -1,77 +1,44 @@
 const express = require('express');
-const multer = require('multer');
-const mysql = require('mysql');
-const cors = require('cors');
-const path = require('path');
-
+const fs = require('fs');
 const app = express();
-const port = 3308;
+const cors = require('cors');
+const bodyParser = require('body-parser');
 
-// Configuração do middleware CORS
+// Middleware
 app.use(cors());
+app.use(bodyParser.json());
 
-// Configuração do multer para upload de arquivos
-const upload = multer({ dest: 'uploads/' });
+// Rota para salvar os itens no arquivo itens.json
+app.post('/api/salvar-item', (req, res) => {
+  const novoItem = req.body;
 
-// Configuração da conexão com o banco de dados
-// 473702ab5104.sn.mynetname.net  //conexao externa acessar de fora        
-const connection = mysql.createConnection({
-  host: '473702ab5104.sn.mynetname.net',
-  user: 'root',
-  password: '',
-  database: 'achadosperdidos',
-  port: 3308
-});
-
-connection.connect((err) => {
-  if (err) {
-    console.error('Erro ao conectar ao banco de dados:', err);
-    return;
-  }
-  console.log('Conectado ao banco de dados');
-});
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-// Endpoint para criar um novo registro
-app.post('/api/registros', upload.array('fotos', 4), (req, res) => {
-  const { descricao, localizacao, data_registro, contato } = req.body;
-
-  const query = 'INSERT INTO registros (descricao, localizacao, contato, data_registro) VALUES (?, ?, ?, ?)';
-  
-  connection.query(query, [descricao, localizacao, contato, data_registro], (error, results) => {
-    if (error) {
-      console.error('Erro ao salvar no banco de dados:', error);
-      return res.status(500).json({ message: 'Erro ao salvar no banco de dados.' });
+  // Carregar o arquivo JSON existente
+  fs.readFile('itens.json', 'utf8', (err, data) => {
+    if (err) {
+      console.error('Erro ao ler o arquivo JSON:', err);
+      res.status(500).send('Erro ao salvar o item.');
+      return;
     }
 
-    req.files.forEach(file => {
-      console.log('Arquivo enviado:', file.filename);
-      // Lógica para salvar o caminho do arquivo no banco de dados, se necessário
+    // Parsear o conteúdo JSON
+    let itens = JSON.parse(data);
+
+    // Adicionar o novo item ao array
+    itens.push(novoItem);
+
+    // Escrever o arquivo JSON atualizado
+    fs.writeFile('itens.json', JSON.stringify(itens, null, 2), (err) => {
+      if (err) {
+        console.error('Erro ao escrever no arquivo JSON:', err);
+        res.status(500).send('Erro ao salvar o item.');
+      } else {
+        res.status(200).send('Item salvo com sucesso.');
+      }
     });
-
-    res.status(200).json({ message: 'Item cadastrado com sucesso!' });
   });
 });
 
-// Endpoint para buscar todos os registros
-app.get('/api/registros', (req, res) => {
-  const query = 'SELECT * FROM registros';
-
-  connection.query(query, (error, results) => {
-    if (error) {
-      console.error('Erro ao buscar registros:', error);
-      return res.status(500).json({ message: 'Erro ao buscar registros.' });
-    }
-
-    res.json(results);
-  });
-});
-
-// Servir arquivos estáticos da pasta uploads
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
-app.listen(port, () => {
-  console.log(`Servidor rodando na porta ${port}`);
+// Iniciar o servidor
+app.listen(3001, () => {
+  console.log('Servidor rodando na porta 3001');
 });

@@ -23,7 +23,7 @@ const AddItemPage = () => {
     });
 
     try {
-      await axios.post('http://192.168.15.23:3308/api/registros', formData, {
+      await axios.post('http://192.168.43.220:3308/api/registros', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       alert('Item cadastrado com sucesso!');

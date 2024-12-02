@@ -1,0 +1,19 @@
+[
+    {
+      "descricao": "Item 1",
+      "localizacao": "Local 1",
+      "data_registro": "2024-10-01",
+      "observacoes": "Observação 1",
+      "fotos": ["url_da_imagem_1"],
+      "recolhido": false
+    },
+    {
+      "descricao": "Item 2",
+      "localizacao": "Local 2",
+      "data_registro": "2024-10-02",
+      "observacoes": "Observação 2",
+      "fotos": ["url_da_imagem_2"],
+      "recolhido": false
+    }
+  ]
+  

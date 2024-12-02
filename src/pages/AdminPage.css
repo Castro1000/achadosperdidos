@@ -1,145 +1,95 @@
-/* Estilos gerais para a página de administração */
-.admin-page {
-  max-width: 800px;
-  margin: 80px auto 100px; /* Aumentei a margem inferior para garantir que o conteúdo não fique atrás do rodapé */
+html, body {
+  height: 100%; /* Garante que a altura do body ocupe toda a tela */
+  margin: 0;
+}
+
+body {
+  display: flex;
+  justify-content: center; /* Centraliza horizontalmente */
+  align-items: center; /* Centraliza verticalmente */
+  padding: 20px; /* Adiciona espaço ao redor do conteúdo */
+  box-sizing: border-box; /* Garante que o padding não afete a largura total */
+}
+
+.admin-page10 {
   padding: 20px;
-  background-color: #fff;
-  border-radius: 12px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-  position: relative; /* Mantém a posição relativa para o layout */
+  max-width: 600px; /* Largura máxima do formulário */
+  width: 100%; /* Garante que o formulário se ajuste em telas menores */
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative; /* Para garantir que o formulário fique acima de outros elementos */
+  z-index: 2; /* Aumenta o z-index para garantir que o formulário fique acima do cabeçalho */
+  height: auto; /* Ajusta a altura automaticamente */
+  max-height: 80vh; /* Limita a altura máxima para evitar que ocupe toda a tela */
+  overflow-y: auto; /* Permite rolagem caso o conteúdo ultrapasse a altura máxima */
+  margin-top: 80px; /* Adiciona margem superior para distanciar do cabeçalho */
 }
 
-/* Estilos para o conteúdo principal da página */
-.page-content {
-  min-height: calc(100vh - 120px); /* Ajusta a altura mínima para garantir que o conteúdo não fique atrás do rodapé */
-}
-
-/* Estilos para o título da página */
-.admin-page__title {
-  font-size: 32px;
+.admin-page__title10 {
+  font-size: 1.5rem; /* Tamanho da fonte do título */
   margin-bottom: 10px;
+  text-align: center;
   color: #333;
-  text-align: center;
 }
 
-/* Estilos para o subtítulo da página */
-.admin-page__subtitle {
-  font-size: 20px;
-  margin-bottom: 20px;
-  color: #666;
+.admin-page__subtitle10 {
+  font-size: 0.9rem; /* Tamanho da fonte do subtítulo */
+  margin-bottom: 15px; /* Reduz o espaço abaixo do subtítulo */
   text-align: center;
+  color: #555;
 }
 
-/* Estilos para o formulário */
-.admin-page__form {
+.admin-page__form10 {
   display: flex;
   flex-direction: column;
-  gap: 20px;
 }
 
-/* Estilos para o grupo de formulários */
-.form-group {
-  margin-bottom: 20px;
+.form-group10 {
+  margin-bottom: 10px; /* Reduz a margem entre os grupos de formulário */
 }
 
-/* Estilos para os rótulos dos formulários */
-.form-group label {
-  font-size: 16px;
-  margin-bottom: 8px;
-  color: #444;
+.form-group10 label {
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #333;
 }
 
-/* Estilos para os controles do formulário */
-.form-control {
-  padding: 12px;
-  font-size: 16px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+.form-control10 {
   width: 100%;
-  box-sizing: border-box;
+  padding: 8px; /* Padding dos campos de entrada */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 0.9rem; /* Tamanho da fonte dos campos de entrada */
 }
 
-/* Estilos para o controle do formulário em foco */
-.form-control:focus {
+.form-control10:focus {
   border-color: #007bff;
-  outline: none;
-  box-shadow: 0 0 3px rgba(0, 123, 255, 0.5);
+  outline: none; /* Remove a borda padrão */
 }
 
-/* Estilos para os botões */
+.form-text10 {
+  font-size: 0.8rem; /* Tamanho da fonte do texto */
+  color: #888;
+}
+
 .btn {
-  padding: 12px 24px;
-  font-size: 16px;
-  background-color: #007bff;
-  color: #fff;
+  background-color: #007bff; /* Azul primário */
+  color: white;
   border: none;
-  border-radius: 8px;
+  padding: 8px 12px; /* Ajusta o padding para botões menores */
+  border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-size: 0.9rem; /* Tamanho da fonte do botão */
 }
 
-/* Estilos para o botão em hover */
 .btn:hover {
-  background-color: #0056b3;
-  transform: translateY(-2px);
+  background-color: #0056b3; /* Azul escuro no hover */
 }
 
-/* Estilos para mensagens de sucesso */
-.success-message {
-  margin-top: 20px;
-  color: #28a745;
-  font-size: 16px;
+.success-message10 {
+  margin-top: 15px;
+  color: green;
+  font-weight: bold;
   text-align: center;
-}
-
-/* Estilos responsivos */
-@media (max-width: 768px) {
-  .admin-page {
-    padding: 15px;
-    margin: 70px auto 80px;
-  }
-
-  .admin-page__title {
-    font-size: 28px;
-  }
-
-  .admin-page__subtitle {
-    font-size: 18px;
-  }
-
-  .form-group label,
-  .form-control,
-  .btn {
-    font-size: 14px;
-  }
-
-  .btn {
-    padding: 10px 20px;
-  }
-}
-
-@media (max-width: 480px) {
-  .admin-page {
-    padding: 10px;
-    margin: 60px auto 60px;
-  }
-
-  .admin-page__title {
-    font-size: 24px;
-  }
-
-  .admin-page__subtitle {
-    font-size: 16px;
-  }
-
-  .form-group label,
-  .form-control,
-  .btn {
-    font-size: 12px;
-  }
-
-  .btn {
-    padding: 8px 16px;
-  }
 }

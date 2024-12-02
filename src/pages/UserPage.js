@@ -1,153 +1,129 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import axios from 'axios';
-import './UserPage.css'; // Certifique-se de que o caminho está correto
+import React, { useState, useEffect } from 'react';
+import './UserPage.css';
 
-const UserPage = () => {
-  const [items, setItems] = useState([]);
-  const [filteredItems, setFilteredItems] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filterDate, setFilterDate] = useState('');
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [deliveryDates, setDeliveryDates] = useState({}); // Armazena a data de entrega por item
-
-  // Função para buscar os itens do backend
-  const fetchItems = async () => {
-    try {
-      const response = await axios.get('http://192.168.15.23:3308/api/registros');
-      setItems(response.data);
-      setFilteredItems(response.data); // Inicialmente mostrar todos
-    } catch (error) {
-      console.error('Erro ao buscar registros:', error);
-      setError('Erro ao buscar registros.');
-    } finally {
-      setLoading(false);
-    }
-  };
+function UserPage() {
+  const [itens, setItens] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+  const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
-    fetchItems();
+    const storedItems = JSON.parse(localStorage.getItem('itens')) || [];
+    setItens(storedItems);
   }, []);
 
-  // Função para filtrar os itens
-  const handleFilter = useCallback(() => {
-    let filtered = items;
-
-    if (searchTerm) {
-      filtered = filtered.filter(item => 
-        item.descricao.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    }
-
-    if (filterDate) {
-      filtered = filtered.filter(item => {
-        const itemDate = new Date(item.data_registro).toISOString().split('T')[0]; // Formata a data do item para "yyyy-MM-dd"
-        return itemDate === filterDate;
-      });
-    }
-
-    setFilteredItems(filtered);
-  }, [items, searchTerm, filterDate]);
-
-  useEffect(() => {
-    handleFilter();
-  }, [searchTerm, filterDate, handleFilter]);
-
-  // Função para marcar um item como entregue
-  const markAsDelivered = async (itemId) => {
-    const deliveryDate = deliveryDates[itemId]; // Pega a data armazenada para o item
-
-    if (deliveryDate) {
-      try {
-        await axios.put(`http://192.168.15.23:3308/api/registros/${itemId}`, {
-          entregue: true,
-          data_entrega: deliveryDate
-        });
-
-        // Atualizar os itens após a alteração
-        fetchItems();
-      } catch (error) {
-        console.error('Erro ao marcar item como entregue:', error);
-        setError('Erro ao marcar item como entregue.');
-      }
-    }
+  const handleImageClick = (foto) => {
+    setSelectedImage(foto);
   };
 
-  // Função para atualizar a data de entrega
-  const handleDeliveryDateChange = (itemId, date) => {
-    setDeliveryDates((prevDates) => ({
-      ...prevDates,
-      [itemId]: date, // Atualiza a data específica para o item
-    }));
+  const handleClose = () => {
+    setSelectedImage(null);
   };
+
+  const handleSearch = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const clearItems = () => {
+    localStorage.removeItem('itens');
+    setItens([]);
+  };
+
+  const handleStartDateChange = (event) => {
+    setStartDate(event.target.value);
+  };
+
+  const handleEndDateChange = (event) => {
+    setEndDate(event.target.value);
+  };
+
+  const filteredItens = itens.filter(item => {
+    const itemDate = new Date(item.data_registro);
+    const start = startDate ? new Date(startDate) : null;
+    const end = endDate ? new Date(endDate) : null;
+
+    const matchesDateRange =
+      (!start || itemDate >= start) && (!end || itemDate <= end);
+
+    const matchesSearchQuery = item.descricao
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase());
+
+    return matchesDateRange && matchesSearchQuery;
+  });
 
   return (
     <div className="user-page-container">
-      <h2>ITENS CADASTRADOS</h2>
+      <h2 className="user-page-title">Itens Cadastrados</h2>
+      <h5 className="user-page-title">
+        Caso encontre seu objeto, ligue 3512-9090 ou dirija-se ao terminal cadastrado
+      </h5>
 
-      {/* Filtros */}
-      <div className="filter-container1">
-        <input 
+      <div className="search-container">
+        <input
           type="text"
-          placeholder="Filtrar por descrição"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="filter-input1"
+          placeholder="Pesquisar por descrição"
+          value={searchQuery}
+          onChange={handleSearch}
+          className="search-input"
         />
-        <input 
+        <input
           type="date"
-          value={filterDate}
-          onChange={(e) => setFilterDate(e.target.value)}
-          className="filter-input1"
+          value={startDate}
+          onChange={handleStartDateChange}
+          className="date-input"
+          placeholder="Data Inicial"
         />
-        <button onClick={handleFilter} className="filter-button1">Filtrar</button>
+        <input
+          type="date"
+          value={endDate}
+          onChange={handleEndDateChange}
+          className="date-input"
+          placeholder="Data Final"
+        />
+        <button onClick={clearItems} className="clear-button">
+          Limpar Banco
+        </button>
       </div>
 
-      {loading && <p>Carregando...</p>}
-      {error && <p>{error}</p>}
-      <div className="results-container">
-        {filteredItems.length > 0 ? (
-          <div className="card-grid">
-            {filteredItems.map((item) => (
-              <div className="card" key={item.id}>
-                <div className="card-content">
-                  <p><strong>Descrição:</strong> {item.descricao}</p>
-                  <p><strong>Localização:</strong> {item.localizacao}</p>
-                  <p><strong>Data de Registro:</strong> {new Date(item.data_registro).toLocaleDateString()}</p>
-                  <p><strong>Contato:</strong> {item.contato}</p>
+      {filteredItens.length === 0 ? (
+        <p className="no-items-message">Não há itens cadastrados.</p>
+      ) : (
+        <div className="card-container">
+          {filteredItens.map((item, index) => (
+            <div className="card" key={index}>
+              <h3 className="card-title">{item.descricao}</h3>
+              <p className="card-info"><strong>Local de retirada:</strong> {item.localizacao}</p>
+              <p className="card-info"><strong>Data de Registro:</strong> {item.data_registro}</p>
+              <p className="card-info"><strong>Observações:</strong> {item.observacoes}</p>
 
-                  {/* Verificação se o item já foi entregue */}
-                  {item.entregue ? (
-                    <p className="delivered">Entregue em: {new Date(item.data_entrega).toLocaleDateString()}</p>
-                  ) : (
-                    <>
-                      {/* Exibir input de data e botão para marcar como entregue */}
-                      <input 
-                        type="date" 
-                        value={deliveryDates[item.id] || ''} 
-                        onChange={(e) => handleDeliveryDateChange(item.id, e.target.value)} 
-                        className="delivery-date-input"
-                      />
-                      <button onClick={() => markAsDelivered(item.id)} className="mark-delivered-button">
-                        Confirmar Entrega
-                      </button>
-                    </>
-                  )}
-                </div>
-                <div className="card-images">
-                  {item.fotos && JSON.parse(item.fotos).map((photo, index) => (
-                    <img key={index} src={`http://192.168.15.23:3308/uploads/${photo}`} alt={`Foto ${index + 1}`} />
-                  ))}
-                </div>
+              <div className="card-images">
+                {item.fotos.map((foto, imgIndex) => (
+                  <img
+                    key={imgIndex}
+                    src={foto}
+                    alt={`Item ${index} - Imagem ${imgIndex}`}
+                    className="item-image"
+                    onClick={() => handleImageClick(foto)}
+                  />
+                ))}
               </div>
-            ))}
-          </div>
-        ) : (
-          <p>Nenhum item encontrado.</p>
-        )}
-      </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {selectedImage && (
+        <div className="fullscreen-modal" onClick={handleClose}>
+          <img src={selectedImage} alt="Fullscreen" className="fullscreen-image" />
+          <button className="close-button" onClick={handleClose}>
+            Voltar
+          </button>
+        </div>
+      )}
     </div>
   );
-};
+}
 
 export default UserPage;

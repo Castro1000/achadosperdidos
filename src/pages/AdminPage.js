@@ -1,57 +1,53 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import './AdminPage.css';
+
+// Função auxiliar para converter arquivos em base64
+const convertToBase64 = (file) => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = (error) => reject(error);
+  });
+};
 
 function AdminPage() {
   const [descricao, setDescricao] = useState('');
   const [localizacao, setLocalizacao] = useState('');
   const [dataRegistro, setDataRegistro] = useState('');
-  const [contato, setContato] = useState('');
+  const [observacoes, setObservacoes] = useState('');
   const [fotos, setFotos] = useState([]);
   const [message, setMessage] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Preparar dados para envio com FormData
-    const formData = new FormData();
-    formData.append('descricao', descricao);
-    formData.append('localizacao', localizacao);
-    formData.append('data_registro', dataRegistro);
-    formData.append('contato', contato);
-    
-    // Adicionar todas as fotos ao FormData
-    fotos.forEach((foto) => {
-      formData.append('fotos', foto);
-    });
+    // Converter as fotos em base64
+    const fotosBase64 = await Promise.all(Array.from(fotos).map(async (foto) => {
+      return await convertToBase64(foto);
+    }));
 
-    try {
-      console.log('Enviando dados:', {
-        descricao,
-        localizacao,
-        data_registro: dataRegistro,
-        contato,
-        fotos: fotos.map(foto => URL.createObjectURL(foto)), // Convertendo para URLs locais para simulação
-      });
+    // Salvar os dados no localStorage
+    const item = {
+      descricao,
+      localizacao,
+      data_registro: dataRegistro,
+      observacoes,
+      fotos: fotosBase64, // Armazenar as fotos como base64
+    };
 
-      // Enviar dados para o backend usando FormData
-      await axios.post('http://192.168.15.23:3308/api/registros', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-      
-      setMessage('Item cadastrado com sucesso!');
-      // Limpar campos após o envio
-      setDescricao('');
-      setLocalizacao('');
-      setDataRegistro('');
-      setContato('');
-      setFotos([]);
-    } catch (error) {
-      console.error('Erro ao cadastrar item:', error);
-      setMessage('Erro ao cadastrar item. Tente novamente.');
-    }
+    const storedItems = JSON.parse(localStorage.getItem('itens')) || [];
+    storedItems.push(item);
+    localStorage.setItem('itens', JSON.stringify(storedItems));
+
+    setMessage('Item cadastrado com sucesso!');
+
+    // Limpar campos após o envio
+    setDescricao('');
+    setLocalizacao('');
+    setDataRegistro('');
+    setObservacoes('');
+    setFotos([]);
   };
 
   const handleFileChange = (e) => {
@@ -59,14 +55,14 @@ function AdminPage() {
   };
 
   return (
-    <div className="admin-page">
-      <h2 className="admin-page__title">Página de Administração</h2>
-      <p className="admin-page__subtitle">
+    <div className="admin-page10">
+      <h2 className="admin-page__title10">Página de Administração</h2>
+      <p className="admin-page__subtitle10">
         Bem-vindo à página de administração. Aqui você pode cadastrar os itens perdidos e encontrados.
       </p>
 
-      <form onSubmit={handleSubmit} className="admin-page__form">
-        <div className="form-group">
+      <form onSubmit={handleSubmit} className="admin-page__form10">
+        <div className="form-group10">
           <label htmlFor="descricao">Descrição do Item:</label>
           <input
             type="text"
@@ -74,63 +70,65 @@ function AdminPage() {
             value={descricao}
             onChange={(e) => setDescricao(e.target.value)}
             required
-            className="form-control"
+            className="form-control10"
+            placeholder="Digite a descrição do item"
           />
         </div>
 
-        <div className="form-group">
-          <label htmlFor="localizacao">Local onde foi encontrado:</label>
+        <div className="form-group10">
+          <label htmlFor="localizacao">Local de retirada:</label>
           <input
             type="text"
             id="localizacao"
             value={localizacao}
             onChange={(e) => setLocalizacao(e.target.value)}
             required
-            className="form-control"
+            className="form-control10"
+            placeholder="Digite o local para retirar o item"
           />
         </div>
 
-        <div className="form-group">
-          <label htmlFor="data_registro">Data:</label>
+        <div className="form-group10">
+          <label htmlFor="data_registro">Data de registro:</label>
           <input
             type="date"
             id="data_registro"
             value={dataRegistro}
             onChange={(e) => setDataRegistro(e.target.value)}
             required
-            className="form-control"
+            className="form-control10"
           />
         </div>
 
-        <div className="form-group">
-          <label htmlFor="contato">Informações de Contato:</label>
-          <input
-            type="text"
-            id="contato"
-            value={contato}
-            onChange={(e) => setContato(e.target.value)}
-            required
-            className="form-control"
+        <div className="form-group10">
+          <label htmlFor="observacoes">Observações:</label>
+          <textarea
+            id="observacoes"
+            value={observacoes}
+            onChange={(e) => setObservacoes(e.target.value)}
+            className="form-control10"
+            rows="4"
+            placeholder="Adicione suas observações aqui"
           />
         </div>
 
-        <div className="form-group">
-          <label htmlFor="fotos">Fotos do Item:</label>
+        <div className="form-group10">
+          <label htmlFor="fotos">Adicionar imagem ou tirar a foto na hora:</label>
           <input
             type="file"
             id="fotos"
             onChange={handleFileChange}
             multiple
             accept="image/*"
-            className="form-control"
+            className="form-control10"
           />
-          <small className="form-text">Você pode adicionar até 4 fotos.</small>
+          <small className="form-text10">Você pode adicionar até 4 fotos.</small>
         </div>
 
-        <button type="submit" className="btn btn-primary">Cadastrar Item</button>
+        <button type="submit" className="btn btn-primary10">Cadastrar Item</button>
       </form>
 
-      {message && <p className="success-message">{message}</p>}
+      {message && <p className="success-message10">{message}</p>}
     </div>
   );
 }

@@ -9,7 +9,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   position: fixed;
   top: 0;
-  left: 0;
+  left: 0px;
   right: 0;
   width: 100%;
   z-index: 1000;
@@ -47,11 +47,13 @@
 }
 
 .logo-image10 {
-  width: 80px;
+  width: 100px;
   height: auto;
   transition: transform 0.3s ease;
   border-radius: 10px;
-  margin-right: 25px; /* Adiciona espaçamento à direita da imagem da logo */
+  margin-right: 10px;
+  margin-left: -25px;
+
 }
 
 .logo-link:hover .logo-image10 {
@@ -113,7 +115,7 @@
     padding: 10px;
     width: 100%;
     text-align: center; /* Alinha o texto do menu ao centro */
-    margin-left: -45px;
+
   }
 
   .hamburger-menu {
@@ -125,7 +127,6 @@
 /* Animação do menu hambúrguer */
 .hamburger-menu--active span:nth-child(1) {
   transform: rotate(48deg) translate(10px, 10px);
-
 }
 
 .hamburger-menu--active span:nth-child(2) {
@@ -152,4 +153,22 @@
     margin-left: 30px; /* Ajuste o espaçamento horizontal em telas grandes */
     margin-right: 30px; /* Ajuste o espaçamento à direita */
   }
+}
+
+/* Estilos para o botão de logout */
+.logout-button {
+  background-color: #ff4b5c;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  margin-left: auto; /* Adiciona espaço à esquerda do botão, empurrando-o para a direita */
+}
+
+.logout-button:hover {
+  background-color: #ff6b7c;
+  transform: scale(1.05);
 }
