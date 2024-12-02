@@ -53,18 +53,24 @@ function LoginPage() {
   // Função para fazer login com os dados fornecidos
   const handleLogin = () => {
     const users = JSON.parse(localStorage.getItem('users')) || [];
-
+  
     // Verifica se o login é de admin
     if (username === 'admin' && password === 'admin') {
       sessionStorage.setItem('loggedIn', 'true');
       setIsAdmin(true); // Define que o usuário é admin
-      navigate('/admin'); // Redireciona para a página de cadastro (AdminPage)
+      navigate('/admin'); // Redireciona para a página de administração (AdminPage)
     } 
-    // Verifica se o login é de aluno
-    else if (username === 'aluno' && password === 'aluno') {
+    // Verifica se o login é de João
+    else if (username === 'joao@gmail.com' && password === '1234') {
       sessionStorage.setItem('loggedIn', 'true');
       setIsAdmin(false); // Define que o usuário não é admin
-      navigate('/UserPage'); // Redireciona para a página de pesquisa (UserPage)
+      navigate('/UserPage'); // Redireciona para a página UserPage
+    } 
+    // Verifica se o login é de Maria
+    else if (username === 'marias@gmail.com' && password === '1234') {
+      sessionStorage.setItem('loggedIn', 'true');
+      setIsAdmin(false); // Define que o usuário não é admin
+      navigate('/UserPage'); // Redireciona para a página UserPage
     } 
     // Verifica login de usuário cadastrado
     else {
@@ -79,6 +85,7 @@ function LoginPage() {
       }
     }
   };
+  
 
   return (
     <div className="login-container1">
