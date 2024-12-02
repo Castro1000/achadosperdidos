@@ -13,39 +13,30 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <Routes>
-          {/* Página de Login */}
-          <Route path="/login" element={<LoginPage />} />
+        <Header />
+        <div className="content-container">
+          <Routes>
+            {/* Página de Login */}
+            <Route path="/login" element={<LoginPage />} />
 
-          {/* Rota privada para HomePage */}
-          <Route
-            path="/"
-            element={
-              <PrivateRoute>
-                <HomePage />
-              </PrivateRoute>
-            }
-          />
+            {/* Rota privada para HomePage */}
+            <Route
+              path="/"
+              element={
+                <PrivateRoute>
+                  <HomePage />
+                </PrivateRoute>
+              }
+            />
 
-          {/* Rotas com Header e Footer para outras páginas */}
-          <Route
-            path="/*"
-            element={
-              <>
-                <Header />
-                <div className="content-container">
-                  <Routes>
-                    <Route path="/admin" element={<AdminPage />} />
-                    <Route path="/UserPage" element={<UserPage />} />
-                    <Route path="/add-item" element={<AddItemPage />} /> {/* Rota para a página de cadastro */}
-                    <Route path="*" element={<NotFoundPage />} /> {/* Página 404 */}
-                  </Routes>
-                </div>
-                <Footer />
-              </>
-            }
-          />
-        </Routes>
+            {/* Rotas com Header e Footer para outras páginas */}
+            <Route path="/admin" element={<AdminPage />} />
+            <Route path="/UserPage" element={<UserPage />} />
+            <Route path="/add-item" element={<AddItemPage />} />
+            <Route path="*" element={<NotFoundPage />} /> {/* Página 404 */}
+          </Routes>
+        </div>
+        <Footer />
       </div>
     </Router>
   );

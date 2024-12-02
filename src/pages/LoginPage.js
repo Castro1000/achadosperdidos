@@ -17,13 +17,12 @@ function LoginPage() {
   // Verifica se o usuário já está logado ao carregar a página
   useEffect(() => {
     if (sessionStorage.getItem('loggedIn') === 'true') {
-      navigate('/'); // Redireciona para a página inicial se já estiver logado
+      navigate('/'); 
     }
   }, [navigate]);
 
-  // Função para gerar um ID aleatório para o usuário
   const generateRandomId = () => {
-    return Math.floor(100000 + Math.random() * 900000); // Gera um número de 6 dígitos aleatório
+    return Math.floor(100000 + Math.random() * 900000); 
   };
 
   // Função para registrar um novo usuário
@@ -36,36 +35,41 @@ function LoginPage() {
       password: registerPassword,
     };
 
-    // Salva o usuário no localStorage (ou poderia usar uma API)
     const users = JSON.parse(localStorage.getItem('users')) || [];
     users.push(newUser);
     localStorage.setItem('users', JSON.stringify(users));
 
-    // Limpa os campos do formulário de registro e fecha o modal
-    setName('');
     setEmail('');
     setBirthdate('');
     setRegisterPassword('');
     setShowRegisterModal(false);
 
     alert('Cadastro realizado com sucesso! Você pode agora fazer login com suas credenciais.');
+    setTimeout(() => {
+      navigate('/login'); // Redireciona para a página de login após o cadastro
+    }, 1000); // Aguarda 1 segundo antes de redirecionar
   };
 
   // Função para fazer login com os dados fornecidos
   const handleLogin = () => {
+    if (!username || !password) {
+      alert('Por favor, preencha todos os campos!');
+      return;
+    }
+
     const users = JSON.parse(localStorage.getItem('users')) || [];
 
     // Verifica se o login é de admin
     if (username === 'admin' && password === 'admin') {
       sessionStorage.setItem('loggedIn', 'true');
       setIsAdmin(true); // Define que o usuário é admin
-      navigate('/admin'); // Redireciona para a página de cadastro (AdminPage)
+      navigate('/admin'); // Redireciona para a página de administração (AdminPage)
     } 
     // Verifica se o login é de aluno
     else if (username === 'aluno' && password === 'aluno') {
       sessionStorage.setItem('loggedIn', 'true');
       setIsAdmin(false); // Define que o usuário não é admin
-      navigate('/UserPage'); // Redireciona para a página de pesquisa (UserPage)
+      navigate('/UserPage'); // Redireciona para a página de usuário (UserPage)
     } 
     // Verifica login de usuário cadastrado
     else {
