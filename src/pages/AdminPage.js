@@ -22,6 +22,12 @@ function AdminPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Limitar o número de fotos a 4
+    if (fotos.length > 4) {
+      alert("Você pode adicionar no máximo 4 fotos.");
+      return;
+    }
+
     // Converter as fotos em base64
     const fotosBase64 = await Promise.all(Array.from(fotos).map(async (foto) => {
       return await convertToBase64(foto);

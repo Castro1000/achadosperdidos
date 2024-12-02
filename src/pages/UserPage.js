@@ -26,8 +26,10 @@ function UserPage() {
   };
 
   const clearItems = () => {
-    localStorage.removeItem('itens');
-    setItens([]);
+    if (window.confirm("Tem certeza que deseja limpar o banco de itens?")) {
+      localStorage.removeItem('itens');
+      setItens([]);
+    }
   };
 
   const handleStartDateChange = (event) => {
@@ -52,6 +54,8 @@ function UserPage() {
 
     return matchesDateRange && matchesSearchQuery;
   });
+
+  const sortedItens = [...filteredItens].sort((a, b) => new Date(b.data_registro) - new Date(a.data_registro));
 
   return (
     <div className="user-page-container">
@@ -87,11 +91,11 @@ function UserPage() {
         </button>
       </div>
 
-      {filteredItens.length === 0 ? (
+      {sortedItens.length === 0 ? (
         <p className="no-items-message">Não há itens cadastrados.</p>
       ) : (
         <div className="card-container">
-          {filteredItens.map((item, index) => (
+          {sortedItens.map((item, index) => (
             <div className="card" key={index}>
               <h3 className="card-title">{item.descricao}</h3>
               <p className="card-info"><strong>Local de retirada:</strong> {item.localizacao}</p>
