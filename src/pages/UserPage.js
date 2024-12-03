@@ -89,9 +89,9 @@ function UserPage() {
           className="date-input"
           placeholder="Data Final"
         />
-        <button onClick={clearItems} className="clear-button">
+        {/* <button onClick={clearItems} className="clear-button">
           Limpar Banco
-        </button>
+        </button> */}
       </div>
 
       {sortedItens.length === 0 ? (
