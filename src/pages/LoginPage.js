@@ -125,22 +125,22 @@ function LoginPage() {
 
       {/* Modal de Esqueci minha senha */}
       {showForgotPasswordModal && (
-        <div className="modal-overlay">
-          <div className="forgot-password-modal">
+        <div className="modal-overlay2">
+          <div className="forgot-password-modal2">
             <h3>Redefinir senha</h3>
             <input
               type="email"
               placeholder="Digite seu e-mail"
               value={forgotPasswordEmail}
               onChange={(e) => setForgotPasswordEmail(e.target.value)}
-              className="forgot-password-input"
+              className="forgot-password-input2"
             />
-            <button onClick={handleForgotPassword} className="send-link-button">
+            <button onClick={handleForgotPassword} className="send-link-button2">
               Enviar link
             </button>
             <button
               onClick={() => setShowForgotPasswordModal(false)}
-              className="cancel-button"
+              className="cancel-button2"
             >
               Cancelar
             </button>
