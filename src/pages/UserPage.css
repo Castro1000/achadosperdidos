@@ -218,6 +218,11 @@ h3 {
   transition: background-color 0.2s; /* Transição ao passar o mouse */
 }
 
+p{
+  color: black;
+  text-align: end;
+}
+
 .close-button:hover {
   background-color: #e84118; /* Escurece ao passar o mouse */
 }
