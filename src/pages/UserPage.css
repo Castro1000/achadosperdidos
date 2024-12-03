@@ -218,9 +218,10 @@ h3 {
   transition: background-color 0.2s; /* Transição ao passar o mouse */
 }
 
-p{
+.periodo{
   color: black;
-  text-align: end;
+  text-align:left;
+  margin-left: 15px;
 }
 
 .close-button:hover {

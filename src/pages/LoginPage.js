@@ -131,13 +131,13 @@ function LoginPage() {
               onChange={(e) => setEmail(e.target.value)}
               className="register-input"
             />
-            <input
+            {/* <input
               type="date"
               placeholder="Data de Nascimento"
               value={birthdate}
               onChange={(e) => setBirthdate(e.target.value)}
               className="register-input"
-            />
+            /> */}
             <input
               type="password"
               placeholder="Senha"

@@ -72,6 +72,8 @@ function UserPage() {
           onChange={handleSearch}
           className="search-input"
         />
+        <br></br>
+        <br></br>
         <input
           type="date"
           value={startDate}
@@ -79,7 +81,7 @@ function UserPage() {
           className="date-input"
           placeholder="Data Inicial"
         />
-        <p>pesquisa por período</p>
+        <p className='periodo' >pesquisa por período</p>
         <input
           type="date"
           value={endDate}
