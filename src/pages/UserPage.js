@@ -2,6 +2,29 @@ import React, { useState, useEffect } from 'react';
 import './UserPage.css';
 
 function UserPage() {
+  const fixedItems = [
+    {
+      descricao: 'Mochila preta com livros',
+      localizacao: 'Terminal 2',
+      data_registro: '2024-01-10',
+      observacoes: 'Mochila contém cadernos e uma garrafa d’água.',
+      fotos: [
+        'https://images.tcdn.com.br/img/img_prod/886231/mochila_para_laptop_preta_seanite_5077_1_f904ef6b83f3d242bf89acafccaab9e3_20231002114959.jpg',
+        'https://m.media-amazon.com/images/I/31nRUCu5HqL._AC_.jpg'
+      ],
+    },
+    {
+      descricao: 'Guarda-chuva azul',
+      localizacao: 'Terminal 2',
+      data_registro: '2024-01-11',
+      observacoes: 'Guarda-chuva está em bom estado.',
+      fotos: [
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKix6DBpEWRzw0s3vTrHHGw5rqqtLF0q5VTg&s',
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBN8VZxw0Yyfv4NXb-ovC_EFomNG7BcGUavRWtxSjVM7IrVnC_RR5WYm76EVlIH7-CFSk&usqp=CAU'
+      ],
+    },
+  ];
+
   const [itens, setItens] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [startDate, setStartDate] = useState('');
@@ -10,7 +33,7 @@ function UserPage() {
 
   useEffect(() => {
     const storedItems = JSON.parse(localStorage.getItem('itens')) || [];
-    setItens(storedItems);
+    setItens([...fixedItems, ...storedItems]);
   }, []);
 
   const handleImageClick = (foto) => {
@@ -28,7 +51,7 @@ function UserPage() {
   const clearItems = () => {
     if (window.confirm("Tem certeza que deseja limpar o banco de itens?")) {
       localStorage.removeItem('itens');
-      setItens([]);
+      setItens([...fixedItems]);
     }
   };
 
@@ -89,9 +112,6 @@ function UserPage() {
           className="date-input"
           placeholder="Data Final"
         />
-        {/* <button onClick={clearItems} className="clear-button">
-          Limpar Banco
-        </button> */}
       </div>
 
       {sortedItens.length === 0 ? (
